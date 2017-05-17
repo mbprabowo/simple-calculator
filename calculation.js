@@ -27,8 +27,10 @@ window.onload = function() {
                     break;
                 // Show the result for calculation
                 case '=':
-                    result.innerHTML = eval(detailValue);
-                    decimalAdded = false;
+                    if (detail.innerHTML != '') {
+                        result.innerHTML = eval(detailValue);
+                        decimalAdded = false;
+                    }
                     break;
                 // Case for arithmatic operator
                 case '/':
