@@ -16,6 +16,7 @@ window.onload = function() {
             var keyValue    = this.innerHTML,
                 detail      = document.getElementById('detail'),
                 detailValue = detail.innerHTML,
+                lastChar    = detailValue[detailValue.length - 1],
                 result      = document.getElementById('result-value');
 
             // Use switch case for different function of keys
@@ -38,8 +39,6 @@ window.onload = function() {
                 case '-':
                 case '+':
                 case '%':
-                    var lastChar = detailValue[detailValue.length - 1];
-
                     if (detailValue != '' && operators.indexOf(lastChar) == -1) {
                         detail.innerHTML += keyValue;
                     } else {
@@ -51,8 +50,6 @@ window.onload = function() {
                     break;
                 // Case for delete char
                 case 'del':
-                    var lastChar = detailValue[detailValue.length - 1];
-
                     if (lastChar == '.') {
                         decimalAdded = false;   
                     }
@@ -68,8 +65,6 @@ window.onload = function() {
                     break;
                 // Case for signing minus/plus to the last calculation
                 case '+/-':
-                    var lastChar = detailValue[detailValue.length - 1];
-
                     if (detailValue != '' && operators.indexOf(lastChar) == -1) {
                         if (lastOperator == '') {
                             if (detailValue == Math.abs(detailValue)) {
