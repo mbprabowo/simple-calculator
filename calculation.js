@@ -1,35 +1,34 @@
-window.onload = function() {
-
+$(function() {
+    
     // Declare all initiliation variables
-    var keys         = document.getElementsByTagName('button'),
+    var keys         = $('button'),
         operators    = ['/', '*', '-', '+', '%'],
         lastOperator = '',
         decimalAdded = false;
     
     // Loop all key
-    for (var i = 0; i < keys.length; i++) {
+    keys.each(function(i, el) {
 
-        // Add click event listener to all key
-        keys[i].onclick = function() {
+        $(this).click(function(event) {
 
             // Add initial variables
-            var keyValue    = this.innerHTML,
-                detail      = document.getElementById('detail'),
-                detailValue = detail.innerHTML,
+            var keyValue    = $(this).html(),
+                detail      = $('#detail'),
+                detailValue = detail.html(),
                 lastChar    = detailValue[detailValue.length - 1],
-                result      = document.getElementById('result-value');
+                result      = $('#result-value');
 
             // Use switch case for different function of keys
             switch (keyValue) {
                 // Case for clearing the calculator
                 case 'C':
-                    result.innerHTML = '0';
-                    detail.innerHTML = '';
+                    result.html('0');
+                    detail.html('');
                     break;
                 // Show the result for calculation
                 case '=':
-                    if (detail.innerHTML != '') {
-                        result.innerHTML = eval(detailValue);
+                    if (detail.html() != '') {
+                        result.html(eval(detailValue));
                         decimalAdded = false;
                     }
                     break;
@@ -40,9 +39,9 @@ window.onload = function() {
                 case '+':
                 case '%':
                     if (detailValue != '' && operators.indexOf(lastChar) == -1) {
-                        detail.innerHTML += keyValue;
+                        detail.html(detailValue + keyValue)
                     } else {
-                        detail.innerHTML = detail.innerHTML.replace(/.$/, keyValue);
+                        detail.html(detailValue.replace(/.$/, keyValue));
                     }
 
                     decimalAdded = false;
@@ -54,12 +53,12 @@ window.onload = function() {
                         decimalAdded = false;   
                     }
 
-                    detail.innerHTML = detail.innerHTML.replace(/.$/, '');
+                    detail.html(detailValue.replace(/.$/, ''));
                     break;
                 // Case for add period
                 case '.':
                     if ( ! decimalAdded) {
-                        detail.innerHTML += keyValue;
+                        detail.html(detaiValue + keyValue);
                         decimalAdded = true;
                     }
                     break;
@@ -68,12 +67,12 @@ window.onload = function() {
                     if (detailValue != '' && operators.indexOf(lastChar) == -1) {
                         if (lastOperator == '') {
                             if (detailValue == Math.abs(detailValue)) {
-                                detail.innerHTML = -(detailValue);
+                                detail.html(-(detailValue));
                             } else {
-                                detail.innerHTML = Math.abs(eval(detailValue));
+                                detail.html(Math.abs(eval(detailValue)));
                             }
                         } else {
-                            var array     = detail.innerHTML.split(lastOperator),
+                            var array     = detailValue.split(lastOperator),
                                 lastIndex = array.length - 1,
                                 newDetail = '',
                                 oldDetail = '';
@@ -88,16 +87,16 @@ window.onload = function() {
                                 oldDetail += array[i] + lastOperator;
                             }
 
-                            detail.innerHTML = oldDetail + newDetail;
+                            detail.html(oldDetail + newDetail);
                         }
                     }
                     break;
                 // Beside of that, just displaying the key value to the calculation
                 // This is used for number
                 default:
-                    detail.innerHTML += keyValue;
+                    detail.html(detailValue + keyValue);
                     break;
             }
-        }
-    }
-}
+        });
+    });
+});
