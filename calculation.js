@@ -38,7 +38,7 @@ $(function() {
                 case '-':
                 case '+':
                 case '%':
-                    if (detailValue != '' && operators.indexOf(lastChar) == -1) {
+                    if (detailValue != '' && $.inArray(lastChar, operators) == -1) {
                         detail.html(detailValue + keyValue)
                     } else {
                         detail.html(detailValue.replace(/.$/, keyValue));
@@ -64,7 +64,7 @@ $(function() {
                     break;
                 // Case for signing minus/plus to the last calculation
                 case '+/-':
-                    if (detailValue != '' && operators.indexOf(lastChar) == -1) {
+                    if (detailValue != '' && $.inArray(lastChar, operators) == -1) {
                         if (lastOperator == '') {
                             if (detailValue == Math.abs(detailValue)) {
                                 detail.html(-(detailValue));
